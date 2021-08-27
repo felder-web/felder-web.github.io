@@ -44,12 +44,13 @@
     }
 
     float weird(vec2 p) {
-      float z = 12.0;
+      float z = 20.0;
       float tm = 0.2*TIME;
       float r = 0.5;
       vec4 pp = vec4(p.x, p.y, 0.0, 0.0);
       pp.w = 0.125*(1.0-tanh(length(pp.xyz)));
-      pp.yz *= ROT(tm);
+      pp.xz *= ROT(tm);
+      pp.xy *= ROT(TAU*0.25);
       pp /= z;
       float d = apollian(pp, 1.2);
       return d*z;
@@ -128,6 +129,7 @@
     void mainImage(out vec4 fragColor, in vec2 fragCoord) {
       vec2 q = fragCoord/RESOLUTION.xy;
       vec2 p = -1. + 2. * q;
+      p.x += 0.37;
       p.x *= RESOLUTION.x/RESOLUTION.y;
       
       vec3 col = color(p);
